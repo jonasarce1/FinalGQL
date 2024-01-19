@@ -8,6 +8,7 @@ export const typeDefs = `#graphql
 
     type Query {
         getContact(id: ID!):ContactoGQL!
+        getContacts():[ContactoGQL!]!
     },
 
     type Mutation { 

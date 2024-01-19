@@ -7,7 +7,6 @@ import { getPais } from "../apis/getPais.ts";
 export const Mutation = {
     addContact: async(_:unknown, args:{nombre: string, numero: string}):Promise<ContactoModelType> => {
         try{
-            //asegurar luego si hace falta checkear argumentos
             
             const validacion:boolean = await validateTelefono(args.numero);
 
@@ -15,9 +14,7 @@ export const Mutation = {
                 throw new GraphQLError("El telefono no es valido");
             }
 
-            //const capital = await getCapital(pais);
-
-            const contacto = new ContactoModel({
+            const contacto = new ContactoModel({ //Anyado el pais a la BBDD para solo hacer una llamada a la API
                 nombre: args.nombre,
                 numero: args.numero,
                 pais: await getPais(args.numero)

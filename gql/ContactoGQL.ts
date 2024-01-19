@@ -1,7 +1,5 @@
 import { GraphQLError } from "graphql";
-import { ContactoModelType, ContactoModel} from "../db/ContactoDB.ts";
-import { validateTelefono } from "../apis/validateTelefono.ts";
-import { getPais } from "../apis/getPais.ts";
+import { ContactoModelType } from "../db/ContactoDB.ts";
 import { getCapital } from "../apis/getCapital.ts";
 import { getTime } from "../apis/getTime.ts";
 
@@ -13,7 +11,7 @@ export const ContactoGQL = {
                 return await getTime(capital);
             }
 
-            return "XX:XX:XX"; //si no se ha podido obtener la hora se pone esto
+            throw new GraphQLError("Error al obtener la hora"); //si no se ha podido obtener la hora salta excepcion
         }catch(error){
             throw new GraphQLError(error.message);
         }

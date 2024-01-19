@@ -1,8 +1,5 @@
 import { GraphQLError } from "graphql";
 import { ContactoModelType, ContactoModel} from "../db/ContactoDB.ts";
-import { validateTelefono } from "../apis/validateTelefono.ts";
-import { getPais } from "../apis/getPais.ts";
-//import { getCapital } from "../apis/getCapital.ts";
 
 export const Query = {
     getContact: async(_:unknown, args:{id: string}):Promise<ContactoModelType> => {
@@ -14,6 +11,15 @@ export const Query = {
             }
 
             return contacto;
+        }catch(error){
+            throw new GraphQLError(error.message);
+        }
+    },
+
+    getContacts: async(_:unknown):Promise<ContactoModelType[]> => {
+        try{
+            const contactos = await ContactoModel.find({}).exec();
+            return contactos;
         }catch(error){
             throw new GraphQLError(error.message);
         }
