@@ -29,14 +29,27 @@ export const Mutation = {
 
     updateContact: async(_:unknown, args:{id: string, nombre: string, numero: string}):Promise<ContactoModelType> => {
         try{
-            const contactoActualizado = await ContactoModel.findByIdAndUpdate(args.id, {
+            /*const contactoActualizado = await ContactoModel.findByIdAndUpdate(args.id, {
                 nombre: args.nombre,
                 numero: args.numero
-            }, {runValidators: true, new: true}).exec();
+            }, {runValidators: true, new: true}).exec();*/
+
+            const contactoActualizado = await ContactoModel.findById(args.id).exec();
 
             if(!contactoActualizado){
-                throw new GraphQLError("No se pudo actualizar el contacto");
+                throw new GraphQLError("No se pudo encontrar el contacto con ese id");
             }
+
+            if(args.nombre){
+                contactoActualizado.nombre = args.nombre
+            }
+
+            if(args.numero){ //Si ha cambiado el numero, igual cambia el pais (hago esto en vez de encadenar pais pero asi llamo menos a la API)
+                contactoActualizado.numero = args.numero;
+                contactoActualizado.pais = await getPais(args.numero);
+            }
+
+            await contactoActualizado.save();
 
             return contactoActualizado;
         }catch(error){
