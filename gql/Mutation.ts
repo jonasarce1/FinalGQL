@@ -2,7 +2,6 @@ import { GraphQLError } from "graphql";
 import { ContactoModelType, ContactoModel} from "../db/ContactoDB.ts";
 import { validateTelefono } from "../apis/validateTelefono.ts";
 import { getPais } from "../apis/getPais.ts";
-//import { getCapital } from "../apis/getCapital.ts";
 
 export const Mutation = {
     addContact: async(_:unknown, args:{nombre: string, numero: string}):Promise<ContactoModelType> => {
