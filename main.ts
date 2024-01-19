@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { typeDefs } from "./gql/schema.ts";
 import { Query } from "./gql/Query.ts";
 import { Mutation } from "./gql/Mutation.ts";
+import { ContactoGQL } from "./gql/ContactoGQL.ts";
 
 const MONGO_URL = Deno.env.get("MONGO_URL");
 
@@ -20,6 +21,7 @@ const server = new ApolloServer({
   resolvers: {
     Query,
     Mutation,
+    ContactoGQL
   }
 });
 
