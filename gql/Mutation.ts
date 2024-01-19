@@ -26,5 +26,22 @@ export const Mutation = {
         }catch(error){
             throw new GraphQLError(error.message);
         }
+    },
+
+    updateContact: async(_:unknown, args:{id: string, nombre: string, numero: string}):Promise<ContactoModelType> => {
+        try{
+            const contactoActualizado = await ContactoModel.findByIdAndUpdate(args.id, {
+                nombre: args.nombre,
+                numero: args.numero
+            }, {runValidators: true, new: true}).exec();
+
+            if(!contactoActualizado){
+                throw new GraphQLError("No se pudo actualizar el contacto");
+            }
+
+            return contactoActualizado;
+        }catch(error){
+            throw new GraphQLError(error.message);
+        }
     }
 };
