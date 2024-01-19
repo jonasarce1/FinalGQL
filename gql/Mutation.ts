@@ -55,5 +55,19 @@ export const Mutation = {
         }catch(error){
             throw new GraphQLError(error.message);
         }
+    },
+
+    deleteContact: async(_:unknown, args:{id:string}):Promise<boolean> => {
+        try{
+            const contactoBorrado = await ContactoModel.findByIdAndDelete(args.id).exec();
+
+            if(!contactoBorrado){ //si no se ha borrado devuelve false
+                return false;
+            }
+
+            return true;
+        }catch(error){
+            throw new GraphQLError(error.message);
+        }
     }
 };
