@@ -14,7 +14,7 @@ export const typeDefs = `#graphql
     type Mutation { 
         addContact(nombre: String!, numero: String!):ContactoGQL!
         updateContact(id: ID!, nombre: String, numero: String):ContactoGQL!
-        deleteContact(id: ID!):boolean!
+        deleteContact(id: ID!):Boolean!
     }
 
 `;
