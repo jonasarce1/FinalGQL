@@ -16,12 +16,12 @@ export const Query = {
         }
     },
 
-    /*getContacts: async():Promise<ContactoModelType[]> => {
+    getContacts: async():Promise<ContactoModelType[]> => {
         try{
             const contactos = await ContactoModel.find({}).exec();
             return contactos;
         }catch(error){
             throw new GraphQLError(error.message);
         }
-    }*/
+    }
 };
